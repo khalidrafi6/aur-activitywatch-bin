@@ -27,6 +27,8 @@ package() {
     mkdir -p $pkgdir/opt
     cp -r activitywatch $pkgdir/opt
 
+    cp $pkgdir/opt/activitywatch/aw-server-rust/aw-server.service ~/.config/systemd/user/
+    
     # Symlink executables to /usr/bin
     mkdir -p $pkgdir/usr/bin
     execnames=("aw-qt")
@@ -53,9 +55,7 @@ package() {
         ln -s /opt/activitywatch/$dir/$name $pkgdir/usr/bin/$name
     done
 
-    # Add .desktop file for autostart
-    mkdir -p $pkgdir/etc/xdg/autostart
-    cp activitywatch/aw-qt.desktop $pkgdir/etc/xdg/autostart
+    rm $pkgdir/opt/activitywatch/libwayland*.so*
 
     # See: https://aur.archlinux.org/packages/activitywatch-bin/#comment-834170
     #rm $pkgdir/opt/activitywatch/libharfbuzz.so*
@@ -75,7 +75,6 @@ package() {
     #rm $pkgdir/opt/activitywatch/libz.so*
     #rm $pkgdir/opt/activitywatch/libX*.so*
     #rm $pkgdir/opt/activitywatch/libxcb*.so*
-    #rm $pkgdir/opt/activitywatch/libwayland*.so*
     #rm $pkgdir/opt/activitywatch/libpng*.so*
     #rm $pkgdir/opt/activitywatch/libgtk*.so*
     #rm $pkgdir/opt/activitywatch/libgnutls*.so*
